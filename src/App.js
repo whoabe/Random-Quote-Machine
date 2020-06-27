@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import Quote from "./components/Quote";
+import QuoteButtons from "./components/QuoteButtons";
 
-function App() {
+// Redux
+import { Provider } from "react-redux";
+import store from "./store";
+import { getQuotes } from "./actions/quotes";
+
+import "./style/App.css";
+
+const App = () => {
+  useEffect(() => store.dispatch(getQuotes()), []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div id="quote-box">
+        <Quote />
+        <QuoteButtons />
+      </div>
+    </Provider>
   );
-}
-
+};
 export default App;
